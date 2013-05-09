@@ -98,6 +98,8 @@ typedef void (^TTAlertViewActionHandler)(NSInteger index);
 - (void)setButtonTitleShadowColor:(UIColor *)shadowColor forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 - (void)setButtonTitleFont:(UIFont *)titleFont UI_APPEARANCE_SELECTOR;
 - (void)setButtonTitleShadowOffset:(CGSize)shadowOffset UI_APPEARANCE_SELECTOR;
+- (void)setButtonAttributedTitleAttributes:(NSDictionary *)buttonsAttributedTitleAttributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (void)setTitleAttributedTextAttributes:(NSDictionary *)titleAttributedTextAttributes;
 
 @end
 

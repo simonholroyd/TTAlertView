@@ -316,6 +316,30 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     }
 }
 
+- (void)setButtonAttributedTitleAttributes:(NSDictionary *)buttonsAttributedTitleAttributes forState:(UIControlState)state
+{
+    for (UIButton *button in self.buttons) {
+        if (button.titleLabel.text)
+            [button setAttributedTitle:[[NSAttributedString alloc] initWithString:button.titleLabel.text attributes:buttonsAttributedTitleAttributes] forState:state];
+    }
+    
+    if(self.isVisible) {
+        [self setNeedsLayout];
+    }
+}
+
+- (void)setTitleAttributedTextAttributes:(NSDictionary *)titleAttributedTextAttributes
+{
+
+    if (self.titleLabel.text)
+        [self.titleLabel setAttributedText:[[NSAttributedString alloc] initWithString:self.titleLabel.text attributes:titleAttributedTextAttributes]];
+
+
+    if(self.isVisible) {
+        [self setNeedsLayout];
+    }
+}
+
 #pragma mark - Buttons
 
 - (void)addButtonWithTitle:(NSString *)title
