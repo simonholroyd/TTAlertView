@@ -56,6 +56,11 @@ typedef void (^TTAlertViewActionHandler)(NSInteger index);
 @property (nonatomic, assign) CGFloat buttonVerticalSpacer UI_APPEARANCE_SELECTOR; // the vertical distance between the buttons in the #buttons > 2 vertical layout
 @property (nonatomic, assign) CGFloat buttonHorizontalSpacer UI_APPEARANCE_SELECTOR; // the horizontal space between buttons
 
+/*
+ * Force the layout to use full width buttons even if there are only 2 buttons added
+ */
+@property (nonatomic, assign) BOOL forceFullWidthButtons;
+
 #pragma mark - UIAlertView methods
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;

@@ -430,8 +430,9 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         
     } else {
         // default height if number of buttons <= 2, else use vertical layout height
-        totalButtonHeight = [self.buttons count] > 2 ? (kTTDefaultDialogButtonHeight * [self.buttons count]) + self.buttonVerticalSpacerFirst + ([self.buttons count] - 2)*(self.buttonVerticalSpacer) : kTTDefaultDialogButtonHeight;
-        
+        NSUInteger minButtons = (self.forceFullWidthButtons) ? 1 : 2;
+        totalButtonHeight = ([self.buttons count] > minButtons) ? (kTTDefaultDialogButtonHeight * [self.buttons count]) + self.buttonVerticalSpacerFirst + ([self.buttons count] - 2)*(self.buttonVerticalSpacer) : kTTDefaultDialogButtonHeight;
+
     }
 
     // max message size is (height of screen) - (min dialog vertical inset) - (content top inset) - (title height) - (content title-message spacer) - (content bottom inset) - (button top inset) - (button height) - (button bottom inset) - (min dialog vertical inset)
@@ -461,8 +462,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         
     }
     // two buttons layout case
-    else if ([self.buttons count] == 2) {
-        
+    else if ([self.buttons count] == 2 && !self.forceFullWidthButtons) {
+
         // find remaining width after accounting for custom sized widths. Will be used if
         CGFloat standardButtonWidth = 0.0f;
         if(self.usingCustomButtonSizes) {
