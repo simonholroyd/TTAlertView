@@ -39,6 +39,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 @property (nonatomic, strong) NSMutableArray *buttons;
 @property (nonatomic, strong) NSMutableDictionary *buttonSizeStrings;
 @property (nonatomic, assign) BOOL usingCustomButtonSizes;
+@property (nonatomic, strong) UITapGestureRecognizer *containerTapGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *backgroundTapGesture;
 
 /**
  * Called when the alertview needs layout for a window
@@ -562,6 +564,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 {   
     UIImageView *backgroundView = [[UIImageView alloc] init];
     [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.7]];
+    [backgroundView setUserInteractionEnabled:YES];
     [self addSubview:backgroundView];
     _backgroundView = backgroundView;
     
@@ -594,6 +597,12 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     _messageLabel = messageLabel;
 
     [_messageScrollView addSubview:_accessoryView];
+
+    _containerTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps)];
+    [_containerView addGestureRecognizer:_containerTapGesture];
+    _backgroundTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTaps)];
+    [_backgroundView addGestureRecognizer:_backgroundTapGesture];
+
     [self setupButtons];
 
 }
@@ -623,6 +632,16 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         }
     }
     [self dismissWithClickedButtonIndex:index animated:YES];
+}
+
+
+#pragma mark - Tap handling
+
+- (void)handleTaps
+{
+    if (self.backgroundTapHandler) {
+        self.backgroundTapHandler();
+    }
 }
 
 @end

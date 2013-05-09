@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^TTAlertViewActionHandler)(NSInteger index);
+typedef void (^TTAlertViewBackgroundTapHandler)();
 
 @protocol TTAlertViewDelegate;
 
@@ -28,6 +29,7 @@ typedef void (^TTAlertViewActionHandler)(NSInteger index);
 #pragma mark - TTAlertView properties
 
 @property (nonatomic, copy) TTAlertViewActionHandler buttonActionHandler;
+@property (nonatomic, copy) TTAlertViewBackgroundTapHandler backgroundTapHandler;
 
 @property (nonatomic, readonly) UIImageView *backgroundView; // by default, the darkened background displayed behind the alert
 @property (nonatomic, readonly) UIImageView *containerView; // the background of the alert view
