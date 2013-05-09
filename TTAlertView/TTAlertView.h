@@ -31,6 +31,7 @@ typedef void (^TTAlertViewActionHandler)(NSInteger index);
 
 @property (nonatomic, readonly) UIImageView *backgroundView; // by default, the darkened background displayed behind the alert
 @property (nonatomic, readonly) UIImageView *containerView; // the background of the alert view
+@property (nonatomic, strong) UIView *accessoryView; // an optional accessory view to replace the message
 @property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) UILabel *messageLabel;
 

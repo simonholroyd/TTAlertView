@@ -78,7 +78,9 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         self.buttonSizeStrings = [NSMutableDictionary dictionary];
         _visible = NO;
         [self setUserInteractionEnabled:YES];
-        
+
+        self.accessoryView = [[UIView alloc] initWithFrame:CGRectZero];
+
         [self setupDefaultInsets];
         [self setupView];
         
@@ -462,7 +464,9 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     // max message size is (height of screen) - (min dialog vertical inset) - (content top inset) - (title height) - (content title-message spacer) - (content bottom inset) - (button top inset) - (button height) - (button bottom inset) - (min dialog vertical inset)
     CGFloat maxMessageHeight = self.bounds.size.height - self.containerMinVerticalInset - self.contentInsets.top - titleTextSize.height - self.contentTitleMessageSpacer - self.contentInsets.bottom - self.buttonInsets.top - totalButtonHeight - self.buttonInsets.bottom  - self.containerMinVerticalInset;
     CGSize messageTextSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX) lineBreakMode:self.messageLabel.lineBreakMode];
-    
+    if (self.accessoryView)
+        messageTextSize.height = MAX(messageTextSize.height, self.accessoryView.frame.size.height);
+
     [self.messageLabel setFrame:(CGRect){ CGPointZero, { contentWidth, messageTextSize.height } }];
     [self.messageScrollView setFrame:(CGRect){ { self.contentInsets.left, self.contentInsets.top + self.titleLabel.frame.size.height + self.contentTitleMessageSpacer }, { contentWidth, MIN( maxMessageHeight, messageTextSize.height ) } }];
     [self.messageScrollView setContentSize:messageTextSize];
@@ -579,7 +583,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [self.messageScrollView addSubview:messageLabel];
     _messageLabel = messageLabel;
-    
+
+    [_messageScrollView addSubview:_accessoryView];
     [self setupButtons];
 
 }
