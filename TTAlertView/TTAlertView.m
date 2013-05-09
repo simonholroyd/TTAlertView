@@ -425,7 +425,13 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     CGSize titleTextSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font forWidth:contentWidth lineBreakMode:self.titleLabel.lineBreakMode];
 
     [self.titleLabel setFrame:(CGRect){ { self.contentInsets.left, self.contentInsets.top}, { contentWidth, titleTextSize.height } }];
-    
+
+    [self.accessoryView setFrame:(CGRect){
+            CGPointZero,
+            contentWidth,
+            self.accessoryView.frame.size.height
+    }];
+
     // buttons (layed out from bottom up)
     CGFloat totalButtonHeight = 0.0f; // space from the top of the topmost button to the bottom of the bottom most button. Does not include message-button spacer or contentBottomInset
     CGFloat totalButtonWidth = self.bounds.size.width - self.containerLeftInset - self.containerRightInset - self.buttonInsets.left - self.buttonInsets.right;
